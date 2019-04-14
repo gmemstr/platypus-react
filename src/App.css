@@ -2,7 +2,11 @@
   text-align: center;
 }
 
-.Server {
-  display: flex;
-  justify-content: space-around;
+.Server, .ServersHeading {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.Servers {
+
 }

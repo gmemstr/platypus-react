@@ -26,6 +26,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <ServersHeading />
         <Servers servers={this.state.servers}/>
       </div>
     );
@@ -57,6 +58,19 @@ class Server extends Component {
         <span className="Cpu">{this.props.server.stats.cpu}%</span>
         <span className="Memory">{this.props.server.stats.memory}%</span>
         <span className="Disk">{this.props.server.stats.disk}%</span>
+      </div>
+    );
+  }
+}
+
+class ServersHeading extends Component {
+  render() {
+    return (
+      <div className="ServersHeading">
+        <h2>Hostname</h2>
+        <h2>CPU Usage</h2>
+        <h2>Memory Usage</h2>
+        <h2>Disk Usage</h2>
       </div>
     );
   }
