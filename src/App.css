@@ -1,0 +1,8 @@
+.App {
+  text-align: center;
+}
+
+.Server {
+  display: flex;
+  justify-content: space-around;
+}
