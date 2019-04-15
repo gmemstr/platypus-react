@@ -26,18 +26,18 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <ServersHeading />
-        <Servers servers={this.state.servers}/>
+        <table>
+          <ServersHeading/>
+          <tbody>
+            <Servers servers={this.state.servers}/>
+          </tbody>
+        </table>
       </div>
     );
   }
 }
 
 class Servers extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     let serverComponents = this.props.servers.map((server) => {
       return <Server key={server.stats.hostname} server={server}/>
@@ -47,18 +47,14 @@ class Servers extends Component {
 }
 
 class Server extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
-      <div className="Server">
-        <span className="Hostname">{this.props.server.stats.hostname}</span>
-        <span className="Cpu">{this.props.server.stats.cpu}%</span>
-        <span className="Memory">{this.props.server.stats.memory}%</span>
-        <span className="Disk">{this.props.server.stats.disk}%</span>
-      </div>
+      <tr className="Server">
+        <td className="Hostname">{this.props.server.stats.hostname}</td>
+        <td className="Cpu">{this.props.server.stats.cpu}%</td>
+        <td className="Memory">{this.props.server.stats.memory}%</td>
+        <td className="Disk">{this.props.server.stats.disk}%</td>
+      </tr>
     );
   }
 }
@@ -66,12 +62,14 @@ class Server extends Component {
 class ServersHeading extends Component {
   render() {
     return (
-      <div className="ServersHeading">
-        <h2>Hostname</h2>
-        <h2>CPU Usage</h2>
-        <h2>Memory Usage</h2>
-        <h2>Disk Usage</h2>
-      </div>
+      <thead>
+      <tr className="ServersHeading">
+        <th>Hostname</th>
+        <th>CPU Usage</th>
+        <th>Memory Usage</th>
+        <th>Disk Usage</th>
+      </tr>
+      </thead>
     );
   }
 }

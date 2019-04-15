@@ -1,12 +1,16 @@
 .App {
+  margin: 20px 0;
   text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
 .Server, .ServersHeading {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  padding: 1em;
 }
 
-.Servers {
-
+.Server:nth-child(odd) {
+  background-color: #414f5c;
 }
