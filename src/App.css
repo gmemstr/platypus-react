@@ -1,4 +1,4 @@
-.App {
+.Servers {
   margin: 20px 0;
   text-align: center;
   display: flex;
@@ -13,4 +13,20 @@
 
 .Server:nth-child(odd) {
   background-color: #414f5c;
+}
+
+.Websocket {
+  width: 100%;
+  display: block;
+  text-align: center;
+}
+
+.Websocket-true::after {
+  content: ' \2022';
+  color: #04ff00;
+}
+
+.Websocket-false::after {
+  content: ' \2022';
+  color: #ff0000;
 }

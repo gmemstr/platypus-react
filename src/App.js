@@ -5,7 +5,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      servers: []
+      servers: [],
+      websocketConnected: true,
     };
     this.websocketMessage = this.websocketMessage.bind(this);
     var loc = window.location, new_uri;
@@ -19,8 +20,13 @@ class App extends Component {
 
     this.socket = new WebSocket(new_uri);
     this.socket.onopen = (event) => {
-      console.log("websocket opened")
+      console.log("websocket opened");
+      this.setState({websocketConnected: true});
     };
+    this.socket.onclose = event => {
+      console.log("websocket closed");
+      this.setState({websocketConnected: false});
+    }
     this.socket.onmessage = (event) => { this.websocketMessage(event) };
   }
 
@@ -35,13 +41,24 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <table>
-          <ServersHeading />
-          <tbody>
-            <Servers servers={this.state.servers} />
-          </tbody>
-        </table>
+        <div className="Websocket"><WebsocketState state={this.state.websocketConnected} /></div>
+        <div className="Servers">
+          <table>
+            <ServersHeading />
+            <tbody>
+              <Servers servers={this.state.servers} />
+            </tbody>
+          </table>
+        </div>
       </div>
+    );
+  }
+}
+
+class WebsocketState extends Component {
+  render() {
+    return (
+      <span className={`Websocket-${this.props.state}`}>{this.props.state === true ? "Connected" : "Disconnected"}</span>
     );
   }
 }
