@@ -6,6 +6,7 @@ class App extends Component {
     super(props);
     this.state = {
       servers: [],
+      plugins: [],
       websocketConnected: true,
     };
     this.websocketMessage = this.websocketMessage.bind(this);
@@ -33,10 +34,18 @@ class App extends Component {
   websocketMessage(event) {
     let servers = JSON.parse(event.data);
     let serversArray = [];
+    let pluginsArray = [];
     for (var key in servers) {
-      serversArray.push(servers[key]);
+      console.log(servers[key])
+      if (servers[key]["type"] == "stats") {
+        serversArray.push(servers[key]);
+      }
+      else {
+        pluginsArray.push(servers[key]);
+      }
     }
-    this.setState({ servers: serversArray });
+
+    this.setState({ servers: serversArray, plugins: pluginsArray });
   }
   render() {
     return (
@@ -50,6 +59,9 @@ class App extends Component {
             </tbody>
           </table>
         </div>
+        <div className="Plugins">
+          <Plugins plugins={this.state.plugins} />
+          </div>
       </div>
     );
   }
@@ -97,6 +109,32 @@ class ServersHeading extends Component {
         </tr>
       </thead>
     );
+  }
+}
+
+class Plugins extends Component {
+  render() {
+    let pluginComponents = this.props.plugins.map((plugin) => {
+      return <Plugin key={plugin.type} plugin={plugin} />
+    });
+    return <table><tbody>{pluginComponents}</tbody></table>; 
+  }
+}
+
+class Plugin extends Component {
+  render() {
+    let plugin = this.props.plugin;
+    console.log(plugin)
+    let custom = JSON.parse(plugin.custom)
+    if (plugin) {
+      console.log(custom)
+      let elems = [];
+      for (let key in custom) {
+        console.log(key, custom[key])
+        elems.push(<td>{key}: {custom[key]}</td>)
+      };
+      return <tr className="Plugin">{elems}</tr>
+    }
   }
 }
 
